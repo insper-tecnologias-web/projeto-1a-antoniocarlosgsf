@@ -44,3 +44,43 @@ def load_template(filename: str) -> str:
     # Lê e retorna o conteúdo do arquivo como string
     with file_path.open("r", encoding="utf-8") as file:
         return file.read()
+    
+
+def adicionar_anotacao(nova_anotacao, caminho_arquivo='data/notes.json'):
+    try:
+        # Tenta abrir e carregar o conteúdo atual do arquivo
+        with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
+            anotacoes = json.load(arquivo)
+    except (FileNotFoundError, json.JSONDecodeError):
+        # Se o arquivo não existir ou estiver vazio/corrompido, inicia uma lista vazia
+        anotacoes = []
+    
+    # Adiciona a nova anotação
+    anotacoes.append(nova_anotacao)
+    
+    # Escreve a lista atualizada de volta no arquivo
+    with open(caminho_arquivo, 'w', encoding='utf-8') as arquivo:
+        json.dump(anotacoes, arquivo, ensure_ascii=False, indent=4)
+
+def build_response(body='', code=200, reason='OK', headers=''):
+    """
+    Constrói uma resposta HTTP.
+    :param body: O corpo da resposta HTTP.
+    :param code: O código de status da resposta (padrão: 200).
+    :param reason: O motivo do código de status (padrão: 'OK').
+    :param headers: Cabeçalhos adicionais da resposta (padrão: '').
+    :return: A resposta HTTP formatada corretamente.
+    """
+    response_line = f"HTTP/1.1 {code} {reason}"
+    
+    # # Garantindo que headers seja uma string válida
+    if headers:
+        response_line += '\n'
+    
+    
+    
+    # Linha em branco separando cabeçalho e corpo
+    return f"{response_line}{headers}\n\n{body}".encode()
+
+# b'HTTP/1.1 404 Not Found\n\n'
+# b'HTTP/1.1 404 Not Found\n\n\n'
