@@ -1,5 +1,10 @@
 from pathlib import Path
+from database import Database, Note
 import json
+
+# Criando instância do banco de dados
+db_name = "banco"
+db = Database(db_name)
 
 def extract_route(request: str) -> str:
     # Divide a string da requisição em linhas
@@ -28,13 +33,15 @@ def read_file(file_path: Path) -> bytes:
         return file.read()
     
 
-def load_data(filename: str):
+def load_data():
     # Define o caminho do arquivo na pasta 'data'
-    file_path = Path("data") / filename
+    # file_path = Path("data") / filename
     
-    # Lê e carrega o conteúdo JSON como um objeto Python
-    with file_path.open("r", encoding="utf-8") as file:
-        return json.load(file)
+    # # Lê e carrega o conteúdo JSON como um objeto Python
+    # with file_path.open("r", encoding="utf-8") as file:
+    #     return json.load(file)
+    notes = db.get_all()
+    return notes
     
 
 def load_template(filename: str) -> str:
