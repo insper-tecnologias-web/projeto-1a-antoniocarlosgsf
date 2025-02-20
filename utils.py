@@ -54,20 +54,27 @@ def load_template(filename: str) -> str:
     
 
 def adicionar_anotacao(nova_anotacao, caminho_arquivo='data/notes.json'):
-    try:
-        # Tenta abrir e carregar o conteúdo atual do arquivo
-        with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
-            anotacoes = json.load(arquivo)
-    except (FileNotFoundError, json.JSONDecodeError):
-        # Se o arquivo não existir ou estiver vazio/corrompido, inicia uma lista vazia
-        anotacoes = []
+    # try:
+    #     # Tenta abrir e carregar o conteúdo atual do arquivo
+    #     with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
+    #         anotacoes = json.load(arquivo)
+    # except (FileNotFoundError, json.JSONDecodeError):
+    #     # Se o arquivo não existir ou estiver vazio/corrompido, inicia uma lista vazia
+    #     anotacoes = []
     
-    # Adiciona a nova anotação
-    anotacoes.append(nova_anotacao)
+    # # Adiciona a nova anotação
+    # anotacoes.append(nova_anotacao)
     
-    # Escreve a lista atualizada de volta no arquivo
-    with open(caminho_arquivo, 'w', encoding='utf-8') as arquivo:
-        json.dump(anotacoes, arquivo, ensure_ascii=False, indent=4)
+    # # Escreve a lista atualizada de volta no arquivo
+    # with open(caminho_arquivo, 'w', encoding='utf-8') as arquivo:
+    #     json.dump(anotacoes, arquivo, ensure_ascii=False, indent=4)
+    print(nova_anotacao)
+    print(nova_anotacao.values())
+    print(list(nova_anotacao.values())[0])
+    titulo = list(nova_anotacao.values())[0]
+    descricao = list(nova_anotacao.values())[1]
+
+    db.add(Note(title=titulo, content=descricao))
 
 def build_response(body='', code=200, reason='OK', headers=''):
     """
