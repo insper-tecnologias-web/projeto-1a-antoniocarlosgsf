@@ -1,6 +1,6 @@
 import socket
 from pathlib import Path
-from utils import extract_route, read_file, build_response
+from utils import extract_route, read_file, build_response, deletar_anotacao
 from views.views import index
 
 CUR_DIR = Path(__file__).parent
@@ -28,6 +28,10 @@ while True:
         response = build_response() + read_file(filepath)
     elif route == '':
         response = index(request)
+    elif route.startswith("delete/"):
+        note_id = int(route.split("/")[1])
+        deletar_anotacao(note_id)
+        response = build_response(code=303, reason="See Other", headers="Location: /")     
     else:
         response = build_response()
 

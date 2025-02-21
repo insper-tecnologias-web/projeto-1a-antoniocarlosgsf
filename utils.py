@@ -76,6 +76,9 @@ def adicionar_anotacao(nova_anotacao, caminho_arquivo='data/notes.json'):
 
     db.add(Note(title=titulo, content=descricao))
 
+def deletar_anotacao(note_id):
+    db.delete(note_id)
+
 def build_response(body='', code=200, reason='OK', headers=''):
     """
     Constrói uma resposta HTTP.

@@ -26,7 +26,7 @@ def index(request):
     # Se tiver curiosidade: https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions
     note_template = load_template('components/note.html')
     notes_li = [
-        note_template.format(title=note.title, details=note.content)
+        note_template.format(id = note.id, title=note.title, details=note.content)
         for note in load_data()
     ]
     notes = '\n'.join(notes_li)
