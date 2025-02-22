@@ -180,9 +180,25 @@ Algumas informações úteis e dicas:
    max-width: 100%;
    padding: 20px;
  }
+
+ .delete-icon {
+  position: absolute;  /* Permite posicionar em relação ao card */
+  top: 10px;           /* Distância do topo */
+  right: 10px;         /* Distância da direita */
+  font-size: 18px;     /* Tamanho do ícone */
+  text-decoration: none;  /* Remove sublinhado padrão */
+  color: #4c4c4c;      /* Cor discreta */
+  cursor: pointer;     /* Muda o cursor ao passar o mouse */
+  transition: color 0.2s ease-in-out;
+}
+
+.delete-icon:hover {
+  color: #e74c3c;  /* Vermelho ao passar o mouse */
+}
  
  /* Estilização dos Cards */
  .card {
+   position: relative;
    width: 220px;
    min-height: 120px;
    padding: 10px;
